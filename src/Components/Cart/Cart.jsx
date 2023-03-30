@@ -13,7 +13,7 @@ const Cart = ({cart}) => {
         totalShipping= totalShipping + item.shipping
         quantity= quantity + item.quantity
     }
-    let tax= (totalPrice*7/100).toFixed(2);
+    let tax= totalPrice*7/100;
     let total= totalPrice + totalShipping +tax;
 
     return (
