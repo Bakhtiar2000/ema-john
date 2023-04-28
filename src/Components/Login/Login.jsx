@@ -4,33 +4,34 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProviders';
 
 const Login = () => {
-    const {signInUser}= useContext(AuthContext)
-    const navigate= useNavigate()
-    const location= useLocation()
+    const { signInUser } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
     // console.log(location)
-    const from= location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname || '/';
     // console.log(from)
 
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
+    const [showPass, setShowPass] = useState(false);
 
-    const handleLogin= event=>{
+    const handleLogin = event => {
         event.preventDefault()
-        const form =event.target
-        const email= form.email.value
-        const password= form.password.value
+        const form = event.target
+        const email = form.email.value
+        const password = form.password.value
         console.log(email, password)
         setError('')
         setSuccess('')
         signInUser(email, password)
-        .then(result=>{
-            const loggedUser= result.user
-            console.log(loggedUser)
-            setSuccess('Login successful')
-            form.reset()
-            navigate(from, {replace: true})
-        })
-        .catch(err=> setError(err.message))
+            .then(result => {
+                const loggedUser = result.user
+                console.log(loggedUser)
+                setSuccess('Login successful')
+                form.reset()
+                navigate(from, { replace: true })
+            })
+            .catch(err => setError(err.message))
     }
     return (
         <div className='form-container'>
@@ -38,11 +39,18 @@ const Login = () => {
             <form onSubmit={handleLogin}>
                 <div className="form-control">
                     <label htmlFor="email">Email</label> <br />
-                    <input type="email" name="email" id="email" required/>
+                    <input type="email" name="email" id="email" required />
                 </div>
                 <div className="form-control">
                     <label htmlFor="password">Password</label> <br />
-                    <input type="password" name="password" id="password" required/>
+                    <input type={showPass? "text" : "password"} name="password" id="password" required />
+                    <p onClick={() => setShowPass(!showPass)}><small>
+                        {
+                            showPass?
+                            <span>Hide Password</span>:
+                            <span>Show Password</span>
+                        }
+                    </small></p>
                 </div>
                 {
                     error && <p className='text-error'>{error}</p>
