@@ -8,11 +8,12 @@
     padding-right: 30px;
 }
 
-.header a{
+.header a, .user{
     text-decoration: none;
     color: white;
     margin-left: 40px;
 }
+
 .header a:hover{
     color: orange;
 }
