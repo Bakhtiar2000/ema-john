@@ -38,6 +38,7 @@ const Signup = () => {
             const loggedUser= result.user
             console.log(loggedUser)
             setSuccess('Sign up successful')
+            form.reset()
         })
         .catch(err=> setError(err.message))
     }
